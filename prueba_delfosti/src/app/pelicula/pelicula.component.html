@@ -1,0 +1,93 @@
+ 
+<mat-toolbar color="primary"> 
+        <span>MY MOVIES</span>
+        <span class="example-spacer"></span> 
+</mat-toolbar>
+ 
+<div class="example-container">
+ 
+  <form [formGroup] = "form"  >
+
+    <div class="example-form-fields">
+
+      <mat-label class="example-label">Filters:</mat-label>
+
+      <mat-form-field class="example-form-field" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input type="text"
+               aria-label="Title"
+               matInput
+               formControlName="title"
+               (keyup)="applyFilter()"
+        >
+      </mat-form-field>
+    
+      <mat-form-field class="example-form-field" appearance="outline">
+        <mat-label>Description</mat-label>
+        <input type="text"
+               aria-label="Description"
+               matInput
+               formControlName="description"
+               (keyup)="applyFilter()"
+        >
+      </mat-form-field>
+  
+  
+      <mat-form-field class="example-form-field">
+        <mat-label>Genre</mat-label>
+        <mat-select  formControlName="genre" (selectionChange)="applyFilter()">
+          <mat-option value="">All</mat-option> 
+          <mat-option *ngFor="let item of genres" [value]="item">
+            {{item}}
+          </mat-option> 
+        </mat-select> 
+      </mat-form-field> 
+    
+    </div>
+
+
+ 
+    <table mat-table [dataSource]="dataSource">
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+         <td mat-cell *matCellDef="let element"> {{element.id}} </td>  
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+          <td mat-cell *matCellDef="let element"> {{element.title}} </td>  
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+         <td mat-cell *matCellDef="let element"> {{element.description}} </td> 
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="genre">
+        <th mat-header-cell *matHeaderCellDef> Genre </th>
+      <td mat-cell *matCellDef="let element"> {{element.genre}} </td>  
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+
+
+  </form>
+
+  
+
+
+ 
+
+  </div>
